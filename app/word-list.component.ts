@@ -1,16 +1,19 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {Word} from './word';
 import {WordComponent} from './word.component';
+import {FilterPipe} from './filter.pipe';
 
 @Component({
   selector: 'word-list',
+  pipes: [FilterPipe],
   directives: [WordComponent],
   template: `
     <div class="WordList">
-      <word *ngFor="#word of words" [word]="word"></word>
+      <word *ngFor="#word of words | filter : filterTerm" [word]="word"></word>
     </div>`
 })
 export class WordListComponent {
+  @Input() filterTerm;
   public words:Word[] = WORDS;
 }
 
