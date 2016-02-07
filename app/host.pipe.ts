@@ -4,9 +4,10 @@ import {Pipe} from 'angular2/core';
   name: 'host'
 })
 export class HostPipe {
-  transform(value) {
+  transform(url:string) {
+    // TODO: Seems wrong to use global `document` ...
     let a = document.createElement('a');
-    a.href = value;
+    a.href = url;
     return a.hostname;
   }
 }
