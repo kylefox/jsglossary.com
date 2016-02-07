@@ -1,7 +1,32 @@
 <html>
   <head>
     <title>jsGlossary</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        packages: {
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+    </script>
+
     <script>
       (function(d) {
         var config = {
@@ -13,65 +38,9 @@
       })(document);
     </script>
   </head>
+
   <body>
-    <header>
-      <h1>jsGlossary</h1>
-      <p>
-        Because the JavaScript world can be confusing.
-      </p>
-      <input type="search" autofocus placeholder="Search for React, Angular, Grunt, etc.">
-      <!-- <div class="Suggest">
-        No results for React? <strong><a href="#">Please submit a definition!</a></strong>
-      </div> -->
-    </header>
-
-    <div class="EntryList">
-
-      <div class="Entry">
-        <div class="Entry-Word">
-          <a href="#">Angular</a>
-        </div>
-        <div class="Entry-Def">
-          HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.
-        </div>
-        <div class="Entry-Link">
-          <a href="https://angularjs.org/">angularjs.org</a>
-        </div>
-      </div>
-
-      <div class="Entry">
-        <div class="Entry-Word">
-          <a href="#">Babel</a>
-        </div>
-        <div class="Entry-Def">
-          Babel is a next-generation JavaScript compiler. Currently, today's browsers do not support every feature of the next-generation of JavaScript (ES6). Babel solves this problem by compiling your ES6 code in to ES5, which is the well-known version of JavaScript supported in all browsers.
-        </div>
-        <div class="Entry-Link">
-          <a href="https://babeljs.io/">babeljs.io</a>
-        </div>
-      </div>
-
-      <div class="Entry">
-        <div class="Entry-Word">
-          <a href="#">React</a>
-        </div>
-        <div class="Entry-Def">
-          React is a JavaScript library for creating user interfaces by Facebook and Instagram. Many people choose to think of React as the V in MVC.
-        </div>
-        <div class="Entry-Link">
-          <a href="http://facebook.github.io/">facebook.github.io</a>
-        </div>
-      </div>
-
-    </div>
-
-    <footer>
-      <div>
-        <strong><a href="#">Suggest Improvements!</a></strong>
-      </div>
-      <small>
-        Made with <span class="hot-stuff">&hearts;</span> by <a href="#">Kyle Fox</a>
-      </small>
-    </footer>
+    <js-glossary></js-glossary>
   </body>
+
 </html>
