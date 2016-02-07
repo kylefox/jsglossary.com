@@ -6,20 +6,29 @@ import {FilterPipe} from './filter.pipe';
 
 @Component({
   selector: 'word-list',
-  pipes: [FilterPipe],
   directives: [FilterBoxComponent, WordComponent],
   template: `
     <div class="WordList">
-      <filter-box (update)="filterTerm = $event"></filter-box>
-      <word *ngFor="#word of words | filter : filterTerm" [word]="word"></word>
+      <filter-box (update)="applyFilter($event)"></filter-box>
+      <div [hidden]="words === null || words.length > 0" class="Suggest">
+        No results for <i>{{ filterTerm }}?</i> <strong><a href="#">Please submit a definition!</a></strong>
+      </div>
+      <word *ngFor="#word of words" [word]="word"></word>
     </div>`
 })
 export class WordListComponent {
-  @Input() filterTerm;
-  public words:Word[] = WORDS;
+
+  public words:Word[] = null;
+  public filterTerm:String = '';
+  private filterPipe:FilterPipe = new FilterPipe();
+
+  applyFilter(term) {
+    this.filterTerm = term;
+    this.words = this.filterPipe.transform(ALL_WORDS, [this.filterTerm]);
+  }
 }
 
-var WORDS: Word[] = [
+const ALL_WORDS: Word[] = [
   {
     key: 'angular',
     word: 'Angular',
