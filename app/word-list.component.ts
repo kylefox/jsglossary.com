@@ -1,14 +1,16 @@
 import {Component, Input} from 'angular2/core';
 import {Word} from './word';
 import {WordComponent} from './word.component';
+import {FilterBoxComponent} from './filter-box.component';
 import {FilterPipe} from './filter.pipe';
 
 @Component({
   selector: 'word-list',
   pipes: [FilterPipe],
-  directives: [WordComponent],
+  directives: [FilterBoxComponent, WordComponent],
   template: `
     <div class="WordList">
+      <filter-box (update)="filterTerm = $event"></filter-box>
       <word *ngFor="#word of words | filter : filterTerm" [word]="word"></word>
     </div>`
 })
